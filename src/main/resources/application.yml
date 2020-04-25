@@ -3,8 +3,8 @@ mybatis:
 
 spring:
   datasource:
-    username: root
-    password: 153615
+    username: demo
+    password: demo
     url: jdbc:mysql://192.168.1.200/bill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
