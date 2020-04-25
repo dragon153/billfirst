@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.billfirst.dao.UserMapper">
+    <select id="getUserByUsername" resultType="com.example.billfirst.entity.User">
+        select * from user where upper(username)=upper(#{username})
+    </select>
+
+    <select id="getUsers" resultType="com.example.billfirst.entity.User">
+        select * from user where 1=1
+        <if test="username != null and username != ''">
+            and username like '%${username}%'
+        </if>
+    </select>
+
+    <select id="getUserById" resultType="com.example.billfirst.entity.User">
+        select * from user where id=#{id}
+    </select>
+
+    <insert id="addUser">
+        insert into user (`username`,`realname`,`password`,`gender`,`usertype`)
+        values (#{username},#{realName},#{password},#{gender},#{userType})
+    </insert>
+
+    <delete id="deleteUserById">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser">
+        update user set `username`=#{username},`realname`=#{realName},`password`=#{password},
+        `gender`=#{gender},`usertype`=#{userType}
+        where `id`=#{id}
+    </update>
+
+</mapper>

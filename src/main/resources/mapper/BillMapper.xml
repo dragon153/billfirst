@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.billfirst.dao.BillMapper">
+
+    <select id="getBills" resultType="com.example.billfirst.entity.BillProvider">
+        select b.*,p.providername from bill b left join provider p on b.pid=p.pid
+        where 1=1
+        <if test="billName!=null and billName !=''">
+            and b.billname like "%"#{billName}"%"
+        </if>
+        <if test="pid!=null and pid!=''">
+            and b.pid=#{pid}
+        </if>
+    </select>
+
+    <select id="getBillById" resultType="com.example.billfirst.entity.BillProvider">
+        select b.*,p.providername from bill b left join provider p on b.pid=p.pid
+        where b.bid=#{bid}
+    </select>
+
+    <insert id="addBill">
+        insert into bill (`billcode`,`billname`,`billunit`,`billnum`,`money`,`pay`,`pid`,`createdate`)
+        values (#{billCode},#{billName},#{billUnit},#{billNum},#{money},#{pay},#{pid},now())
+    </insert>
+
+    <update id="updateBill">
+        update bill set `billcode`=#{billCode},`billname`=#{billName},`billunit`=#{billUnit},`billnum`=#{billNum},
+        `money`=#{money},`pay`=#{pay},`pid`=#{pid},`createdate`=now()
+        where `bid`=#{bid}
+    </update>
+
+    <delete id="deleteBillById">
+        delete from bill where bid=#{bid}
+    </delete>
+
+</mapper>

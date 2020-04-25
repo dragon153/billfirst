@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head"></head>
+<body>
+    <!--头部-->
+    <header class="publicHeader" th:replace="main/public :: #public_header"></header>
+    <!--时间-->
+    <section class="publicTime" th:replace="main/public :: #public_time"></section>
+    <!--主体内容-->
+    <section class="publicMian ">
+        <div class="left" th:replace="main/public :: #public_left(activeUri='user')"></div>
+        <div class="right">
+            <div class="location">
+                <strong>你现在所在的位置是:</strong>
+                <span>用户管理页面 >> 用户修改页面</span>
+            </div>
+            <div class="providerAdd">
+                <form id="updateForm" action="#" th:action="@{/user}" th:method="post">
+                    <input th:type="hidden" name="_method" value="put">
+                    <input th:type="hidden" name="id" th:value="${user.id}">
+                    <input th:type="hidden" name="username" th:value="${user.username}">
+                    <input th:type="hidden" name="password" th:value="${user.password}">
+
+                    <div>
+                        <label for="realName">真实姓名：</label>
+                        <input type="text" th:value="${user.realName}" name="realName" id="realName" placeholder="韩露"/>
+                        <span >*</span>
+                    </div>
+                    <div>
+                        <label >用户性别：</label>
+                        <select name="gender">
+                            <option value="0" th:selected="${user.gender==false}">女</option>
+                            <option value="1" th:selected="${user.gender==true}" selected>男</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label >用户类别：</label>
+                        <input type="radio" name="userType" value="0" th:checked="${user.userType==false}"/>管理员
+                        <input type="radio" name="userType" value="1" checked th:checked="${user.userType==true}"/>普通用户
+                    </div>
+                    <div class="providerAddBtn">
+                        <input type="button" value="保存" onclick="$('#updateForm').submit()"/>
+                        <input type="button" value="返回" onclick="history.back(-1)"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" th:replace="main/public :: #public_footer"></footer>
+    <script th:src="@{/js/jquery.js}"></script>
+
+</body>
+</html>
